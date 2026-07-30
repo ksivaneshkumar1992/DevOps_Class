@@ -5,11 +5,18 @@ on:
   branches: ["main"]
 
 jobs:
-  sample:
+  build:
    runs-on: [self-hosted, siva_runner]
 
    steps:
-     - name: sample try
-       run: echo "Sample Pipeline"
+     - name: Build Step
+       run: echo "Build Pipeline"
+
+Deploy:
+  runs-on: [self-hosted, siva_runner]
+
+  steps:
+   -name: Deploy Step
+   run: echo "Deploy Pipeline"
 
   
