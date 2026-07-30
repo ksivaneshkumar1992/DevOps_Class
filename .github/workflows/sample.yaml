@@ -12,11 +12,9 @@ jobs:
      - name: Build Step
        run: echo "Build Pipeline"
 
-Deploy:
-  runs-on: [self-hosted, siva_runner]
+  Deploy:
+   runs-on: [self-hosted, siva_runner]
 
-  steps:
-   -name: Deploy Step
-   run: echo "Deploy Pipeline"
-
-  
+   steps:
+     - name: Deploy Step
+       run: echo "Deploy Pipeline"
