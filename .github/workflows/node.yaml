@@ -25,7 +25,7 @@
 
     - name: Run Node application
       run: |
-       node volume1.js &
+       node volumes1.js &
        sleep 5
        curl http://localhost:8080
        curl http://localhost:8080/health
