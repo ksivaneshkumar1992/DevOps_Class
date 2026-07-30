@@ -13,6 +13,7 @@ jobs:
        run: echo "Build Pipeline"
 
   Deploy:
+   needs: build
    runs-on: [self-hosted, siva_runner]
 
    steps:
