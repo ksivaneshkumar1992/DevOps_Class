@@ -1,0 +1,15 @@
+name: Sample Pipleline
+
+on:
+ push: 
+  branches: ["main"]
+
+jobs:
+  sample:
+   runs-on: ubuntu-latest
+
+   steps:
+     - name: sample try
+       run: echo "Sample Pipeline"
+
+  
