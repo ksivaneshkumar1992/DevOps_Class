@@ -1,0 +1,42 @@
+ name: Matrix Pipleline
+
+ on:
+  push: 
+   branches: ["main"]
+  pull_request:
+   branches: ["main"]
+  workflow_dispatch:
+
+ jobs:
+  Node:
+   runs-on: [self-hosted, siva_runner]
+   strategy:
+    matrix:
+      node-version: [24,26]
+   
+
+   steps:
+    - name: Checkout code 
+      uses: actions/checkout@v7
+    
+    - name: Setup node
+      uses: actions/setup-node@v7
+      with:
+       node-version: ${( matrix.node-version )]
+      
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Run Node application
+      run: |
+       node volumes1.js &
+       sleep 5
+       curl http://localhost:8080
+       curl http://localhost:8080/health
+       pkill -f 'node volumes1.js'
+      
+  
+     
+    
+   
