@@ -1,0 +1,9 @@
+FROM node:alpine
+WORKDIR /app
+COPY . .
+RUN npm install
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup && chown -R appuser:appgroup /app/logs
+EXPOSE 8080
+USER appuser
+ENTRYPOINT ["node"]
+CMD ["volumes.js" , "dev1"]

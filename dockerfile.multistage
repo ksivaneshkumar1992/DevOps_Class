@@ -1,0 +1,17 @@
+FROM node:alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+
+
+FROM node:alpine
+WORKDIR /app
+COPY --from=build /app/node_modules ./node_modules
+COPY volumes.js ./
+COPY package.json ./
+COPY logs ./logs
+RUN addgroup -S appgroup && adduser -S appuser -G appgroup && chown -R appuser:appgroup /app
+EXPOSE 8080
+USER appuser
+ENTRYPOINT ["node"]
+CMD ["volumes.js" , "dev1"]
