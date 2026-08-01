@@ -10,7 +10,7 @@ jobs:
    runs-on: [self-hosted,siva-runner]
    steps:
      - name: Checkout Code
-       uses: actions/checkout/v7
+       uses: actions/checkout@v7
 
      - name: Run Sonarqube analysis
        uses: SonarSource/sonarqube-scan-action@v7
