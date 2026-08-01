@@ -32,10 +32,10 @@
 
     - name: Run Node application
       run: |
-       node volumes1.js &
+       node volumes1.js prod &
        sleep 5
-       curl http://localhost:8080
-       curl http://localhost:8080/health
+       curl http://localhost:5000
+       curl http://localhost:5000/health
        pkill -f 'node volumes1.js'
       
   
