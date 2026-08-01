@@ -1,11 +1,25 @@
  name: Node Basic Pipleline
 
  on:
-  push: 
-   branches: ["main"]
-  pull_request:
-   branches: ["main"]
   workflow_dispatch:
+   inputs:
+     environment:
+      description: "Choose environment to run"
+      required: true
+      default: "dev"
+      type: choice
+      options:
+        - dev
+        - prod
+     port:
+      description: "Choose the Port"
+      required: true
+      default: "8080"
+      type: choice
+      options:
+        - 8080
+        - 5000
+    
 
  jobs:
   Node:
