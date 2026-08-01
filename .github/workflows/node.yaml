@@ -24,6 +24,7 @@
  jobs:
   Node:
    runs-on: [self-hosted, siva_runner]
+   environment: prod
 
    steps:
     - name: Checkout code 
