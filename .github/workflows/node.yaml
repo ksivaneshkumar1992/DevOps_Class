@@ -25,10 +25,10 @@
 
     - name: Create env file
       run: |
-        echo "APP=${{ vars.DEV.APP}}" >> .env.dev1
-        echo "PORT=${{ vars.DEV.PORT}}" >> .env.dev1
-        echo "APP=${{ vars.PROD.APP}}" >> .env.prod
-        echo "PORT=${{ vars.PROD.PORT}}" >> .env.prod 
+        echo "APP=${{ vars.DEV_APP}}" >> .env.dev1
+        echo "PORT=${{ vars.DEV_PORT}}" >> .env.dev1
+        echo "APP=${{ vars.PROD_APP}}" >> .env.prod
+        echo "PORT=${{ vars.PROD_PORT}}" >> .env.prod 
 
     - name: Run Node application
       run: |
