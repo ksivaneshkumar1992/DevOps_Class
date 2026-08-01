@@ -24,7 +24,7 @@
  jobs:
   Node:
    runs-on: [self-hosted, siva_runner]
-   environment: prod
+   environment: ${{github.ref -- 'refs/heads/main' && 'prod' | 'dev'}}
 
    steps:
     - name: Checkout code 
