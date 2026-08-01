@@ -46,7 +46,7 @@
 
     - name: Run Node application
       run: |
-       node volumes1.js prod &
+       node volumes1.js ${{github.event.inputs.environment}} &
        sleep 5
        curl http://localhost:5000
        curl http://localhost:5000/health
