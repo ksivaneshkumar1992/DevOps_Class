@@ -24,7 +24,7 @@
  jobs:
   Node:
    runs-on: [self-hosted, siva_runner]
-   environment: ${{github.ref -- 'refs/heads/main' && 'prod' | 'dev'}}
+   environment: ${{github.ref == 'refs/heads/main' && 'prod' || 'dev'}}
 
    steps:
     - name: Checkout code 
@@ -49,8 +49,8 @@
       run: |
        node volumes1.js ${{github.event.inputs.environment}} &
        sleep 5
-       curl http://localhost:5000
-       curl http://localhost:5000/health
+       curl http://localhost:${{ github.event.inputs.port }}
+       curl http://localhost:${{ github.event.inputs.port }}/health
        pkill -f 'node volumes1.js'
       
   
