@@ -16,8 +16,8 @@ jobs:
        uses: SonarSource/sonarqube-scan-action@v7
        with:
         args: >
-         -Dsonar.projectKey=NodeApp-Demo \
-         -Dsonar.sources=. \
-         -Dsonar.host.url=http://localhost:8000 \
+         -Dsonar.projectKey=NodeApp-Demo
+         -Dsonar.sources=.
+         -Dsonar.host.url=http://localhost:8000
          -Dsonar.token=sqp_bfbe988b4e26da4178e1c85afd78498aa0701f9a
      
