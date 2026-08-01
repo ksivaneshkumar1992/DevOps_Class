@@ -7,7 +7,7 @@ on:
 
 jobs:
   sonarqube:
-   runs-on: [self-hosted,siva-runner]
+   runs-on: [self-hosted,siva_runner]
    steps:
      - name: Checkout Code
        uses: actions/checkout@v7
