@@ -15,6 +15,10 @@ jobs:
      - name: Build Docker Image
        run: docker build -f dockerfile.multistage.distroless -t testdoceker-distroless .
 
+     - name: Verify Docker login
+       run: |
+        cat ~/.docker/config.json
+
      - name: Tag and Push  Docker image
        run: |
         SHORT_SHA=${GITHUB_SHA::7}
