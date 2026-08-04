@@ -1,0 +1,50 @@
+name: Docker and Sonar Ci Pipeline
+
+on: 
+ pull_request:
+  branches: ["main"]
+ push: 
+  branches: ["main"]
+ workflow_dispatch: 
+
+jobs:
+  sonarqube:
+   runs-on: [self-hosted,siva_runner]
+   if: github.event_name == 'pull_request'
+   steps:
+     - name: Checkout Code
+       uses: actions/checkout@v7
+
+     - name: Run Sonarqube analysis
+       uses: SonarSource/sonarqube-scan-action@v7
+       with:
+        args: >
+         -Dsonar.projectKey=NodeApp-Demo
+         -Dsonar.sources=.
+         -Dsonar.quality.wait=true
+       env:
+        SONAR_TOKEN: ${{secrets.SONAR_TOKEN}}
+        SONAR_HOST_URL: ${{secrets.SONAR_HOST_URL}}
+
+  docker:
+     runs-on: [self-hosted,siva_runner]
+     if: github.event_name == 'push' || github.event_name == 'work_dispatch'
+     environment: prod
+     steps:
+      - name: Checkout Code
+        uses: actions/checkout@v7
+        with:
+           username: ${{ vars.DOCKERHUB_USERNAME }}
+           password: ${{ secrets.DOCKERHUB_PASSWORD }}
+      - name: Build Docker Image
+        run: docker build -f dockerfile.multistage.distroless -t testdoceker-distroless .
+
+      - name: Verify Docker login
+        run: |
+         cat ~/.docker/config.json
+
+      - name: Tag and Push  Docker image
+        run: |
+         SHORT_SHA=${GITHUB_SHA::7}
+         docker tag testdoceker-distroless ${{vars.DOCKERHUB_USERNAME}}/nodeapp-test:$SHORT_SHA
+         docker push ${{vars.DOCKERHUB_USERNAME}}/nodeapp-test:$SHORT_SHA
