@@ -1,35 +1,42 @@
 name: Docker Build and Push
 
 inputs:
-   username:
+  username:
     description: Docker Hub Login
     required: true
-   password:
+  password:
     description: Docker Hub Password
     required: true
 
-
 runs:
-  using: "composite"
+  using: composite
+  steps:
+    - name: Login to Docker
+      uses: docker/login-action@v3
+      with:
+        username: ${{ inputs.username }}
+        password: ${{ inputs.password }}
 
-steps:
-      - name: Login to Docker
-        uses: docker/login-action@v4
-        with:
-           username: ${{ inputs.username }}
-           password: ${{ inputs.password }}
-      - name: Build Docker Image
-        shell: bash
-        run: docker build -f dockerfile.multistage.distroless -t testdoceker-distroless .
+    - name: Build Docker Image
+      shell: bash
+      run: |
+        docker build -f dockerfile.multistage.distroless \
+          -t testdoceker-distroless .
 
-      - name: Verify Docker login
-        shell: bash
-        run: |
-         cat ~/.docker/config.json
+    - name: Verify Docker login
+      shell: bash
+      run: |
+        cat ~/.docker/config.json
 
-      - name: Tag and Push  Docker image
-        shell: bash
-        run: |
-         SHORT_SHA=${GITHUB_SHA::7}
-         docker tag testdoceker-distroless ${{ inputs.username }}/nodeapp-test:$SHORT_SHA
-         docker push ${{ inputs.username }}/nodeapp-test:$SHORT_SHA
+    - name: Tag Docker image
+      shell: bash
+      run: |
+        SHORT_SHA=${GITHUB_SHA::7}
+        docker tag testdoceker-distroless \
+          ${{ inputs.username }}/nodeapp-test:$SHORT_SHA
+
+    - name: Push Docker image
+      shell: bash
+      run: |
+        SHORT_SHA=${GITHUB_SHA::7}
+        docker push ${{ inputs.username }}/nodeapp-test:$SHORT_SHA
