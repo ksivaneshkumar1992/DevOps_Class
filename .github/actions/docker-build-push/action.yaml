@@ -1,16 +1,16 @@
 name: Docker Build and Push
 
 inputs:
- username:
-  description: Docker Hub Login
-  required: true
- password:
-  description: Docker Hub Password
-  required: true
+   username:
+    description: Docker Hub Login
+    required: true
+   password:
+    description: Docker Hub Password
+    required: true
 
 
 runs:
-  using: "composite"
+  using: composite
 
 steps:
       - name: Login to Docker
@@ -31,5 +31,5 @@ steps:
         shell: bash
         run: |
          SHORT_SHA=${GITHUB_SHA::7}
-         docker tag testdoceker-distroless ${{vars.DOCKERHUB_USERNAME}}/nodeapp-test:$SHORT_SHA
-         docker push ${{vars.DOCKERHUB_USERNAME}}/nodeapp-test:$SHORT_SHA
+         docker tag testdoceker-distroless ${{ inputs.username }}/nodeapp-test:$SHORT_SHA
+         docker push ${{ inputs.username }}/nodeapp-test:$SHORT_SHA
