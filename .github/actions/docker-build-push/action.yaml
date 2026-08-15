@@ -10,7 +10,7 @@ inputs:
 
 
 runs:
-  using: composite
+  using: "composite"
 
 steps:
       - name: Login to Docker
