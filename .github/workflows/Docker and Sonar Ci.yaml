@@ -1,4 +1,4 @@
-name: Docker and Sonar Ci Pipeline
+name: Docker and Sonar ci Pipeline
 
 on: 
  pull_request:
